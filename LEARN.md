@@ -6,14 +6,14 @@
 - Using CSS framework will be made the page a little time before styles will kick in because browser have to download CSS file.
 
 ## Server
-- [Question] What is package.json?
+- `Question:` What is package.json?
     - Manage package installed locally.
-- [Question] How can I write package.json?
-    - "scripts" Contains some pairs key-value. [value] means the commands for running code by using npm run [key].
-- [Question] What does npm... command mean?
+- `Question:` How can I write package.json?
+    - "scripts" Contains some pairs key-value. [__value__] means the commands for running code by using npm run [__key__].
+- `Question:` What does npm... command mean?
     - NPM (Node package manager) can create, manage libraries, packages for Node.js.
     - It contains libraries with hundreds of features even framework
-- [Bug:] No 'Access-Control-Allow-Origin' header is present on the requested resource.  
+- `Bug:` No 'Access-Control-Allow-Origin' header is present on the requested resource.  
     - This means your client does not have access right to port ... 
     - Because browser does not want js code can be talked about any server in the world unless those servers actually allow it 
-    - [Solve:]: Using `cors` package as `middleware`. So every request will go through middleware and it's gonna automatically add those cors headers it. 
+    - `Solve:` Using `cors` package as `middleware`. So every request will go through middleware and it's gonna automatically add those cors headers it. 
