@@ -27,3 +27,6 @@
     - Lazy loading list element from backend.
     - Find cats 
     - Caching for finding cats
+
+## Complete
+    - Find cats
