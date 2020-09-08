@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+// const db = require('monk')('localhost/meomeo');
 const monk = require('monk');
 
 const db = monk('localhost/meomeo');
-const meos = db.get('/meos');
+
 
 app.use(cors());
 app.use(express.json());
@@ -20,17 +21,23 @@ function isValidMeo(meo) {
         meo.name && meo.name.toString().trim() != '';
 }
 
-app.post('/meo', (req, res) => {
+app.post('/meos', (req, res) => {
+    const meos = db.get('meos');
     if (isValidMeo(req.body)) {
         const meo = {
             name: req.body.name.toString(),
-            content: req.body.content.toString()
+            content: req.body.content.toString(),
+            created: new Date()
         };
-        console.log(meo);
+
+        meos.insert(meo)
+            .then(createdMeo =>
+                res.json(createdMeo)
+            );
     } else {
         res.status(422);
-        res.json({ 
-            message: 'Name and Content are required!' 
+        res.json({
+            message: 'Name and Content are required!'
         });
     }
 });
