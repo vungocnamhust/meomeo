@@ -1,8 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-// const db = require('monk')('localhost/meomeo');
+const rateLimit = require('express-rate-limit');
 const monk = require('monk');
+const Filter = require('bad-words'),
+        filter = new Filter();
 
 const db = monk('localhost/meomeo');
 const meos = db.get('meos');
@@ -29,10 +31,15 @@ app.get('/meos', (req, res) => {
         );
 })
 
+app.use(rateLimit({
+    windowMs: 30 * 1000,
+    max: 1
+}));
+
 app.post('/meos', (req, res) => {
     if (isValidMeo(req.body)) {
         const meo = {
-            name: req.body.name.toString(),
+            name: filter.clean(req.body.name.toString()),
             content: req.body.content.toString(),
             created: new Date()
         };

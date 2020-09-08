@@ -4,6 +4,11 @@
 - Browser will send to Server (GET, POST), then Server return HTML, CSS for browser
 - Browser will use HTML, CSS for rendering UI  
 - Using CSS framework will be made the page a little time before styles will kick in because browser have to download CSS file.
+- `Question:`
+    - element.innerHtml means?
+- `Question:`
+    - If you read list elements more time from server db, if whether the DOM will clear all items automatically?
+    - Clear item of element list (DOM) before loading another list from server which increase performance?
 
 ## Server
 - `Question:` What is package.json?
@@ -17,3 +22,8 @@
     - This means your client does not have access right to port ... 
     - Because browser does not want js code can be talked about any server in the world unless those servers actually allow it 
     - `Solve:` Using `cors` package as `middleware`. So every request will go through middleware and it's gonna automatically add those cors headers it. 
+
+## Idea
+    - Lazy loading list element from backend.
+    - Find cats 
+    - Caching for finding cats
