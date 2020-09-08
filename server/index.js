@@ -5,6 +5,7 @@ const app = express();
 const monk = require('monk');
 
 const db = monk('localhost/meomeo');
+const meos = db.get('meos');
 
 
 app.use(cors());
@@ -21,8 +22,14 @@ function isValidMeo(meo) {
         meo.name && meo.name.toString().trim() != '';
 }
 
+app.get('/meos', (req, res) => {
+    meos.find()
+        .then((meos) =>
+            res.json(meos)
+        );
+})
+
 app.post('/meos', (req, res) => {
-    const meos = db.get('meos');
     if (isValidMeo(req.body)) {
         const meo = {
             name: req.body.name.toString(),

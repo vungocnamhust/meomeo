@@ -1,8 +1,10 @@
 const form = document.querySelector('form');
 const loading = document.querySelector('.loading');
 const API_URL = 'http://localhost:5000/meos'
+const meosElement = document.querySelector('.meos');
+loading.style.display = '';
 
-loading.style.display = 'none';
+listAllMeos();
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -25,13 +27,40 @@ form.addEventListener('submit', (event) => {
             'content-type': 'application/json'
         }
     }).then(res => {
-        console.log(res);
         return res.json();
     })
       .then(createdMeo => {
-          console.log(createdMeo);
           loading.style.display = 'none';
-          
+          form.style.display = '';
       });
 
 });
+
+function listAllMeos(){
+    meosElement.innerHTML = '';
+    fetch(API_URL).then(res => res.json())
+        .then(meos => {
+            meos.reverse();
+
+            meos.forEach(meo => {
+                const div = document.createElement('div')
+    
+                const header = document.createElement('h3');
+                header.textContent = meo.name;
+    
+                const content = document.createElement('p');
+                content.textContent = meo.content;
+    
+                const date = document.createElement('small');
+                date.textContent = new Date(meo.created);
+
+                div.appendChild(header);
+                div.appendChild(content);
+                div.appendChild(date);
+    
+                meosElement.append(div);
+            })
+            loading.style.display = 'none';
+        });
+}                  
+   
