@@ -4,7 +4,7 @@ const app = express();
 const rateLimit = require('express-rate-limit');
 const monk = require('monk');
 const Filter = require('bad-words'),
-        filter = new Filter();
+    filter = new Filter();
 
 const db = monk(process.env.MONGO_URI || 'localhost/meomeo');
 const meos = db.get('meos');
@@ -33,14 +33,14 @@ app.get('/meos', (req, res) => {
 
 app.use(rateLimit({
     windowMs: 30 * 1000,
-    max: 1
+    max: 10
 }));
 
 app.post('/meos', (req, res) => {
     if (isValidMeo(req.body)) {
         const meo = {
-            name: filter.clean(req.body.name.toString()),
-            content: req.body.content.toString(),
+            name: filter.clean(req.body.name.toString().trim()),
+            content: filter.clean(req.body.content.toString().trim()),
             created: new Date()
         };
 
@@ -48,6 +48,26 @@ app.post('/meos', (req, res) => {
             .then(createdMeo =>
                 res.json(createdMeo)
             );
+    } else {
+        res.status(422);
+        res.json({
+            message: 'Name and Content are required!'
+        });
+    }
+});
+
+app.post('/meofind', (req, res) => {
+    if (isValidMeo(req.body)) {
+        const meo = {
+            name: filter.clean(req.body.name.toString().trim()),
+            content: filter.clean(req.body.content.toString().trim())
+        };
+        console.log(meo);
+        meos.find(meo)
+            .then(foundMeo => {
+                console.log(foundMeo);
+                res.json(foundMeo);
+            });
     } else {
         res.status(422);
         res.json({
