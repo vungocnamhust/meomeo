@@ -3,7 +3,7 @@
 }
 
 .meo-form, .loading{
-    width: 50%;
+    width: 70%;
     margin: 0 auto;
 }
 
@@ -14,4 +14,32 @@
 .meos {
     margin: 0 auto;
     width: 80%;
+}
+
+.flex {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-child1 {
+    margin: 10;
+    width: 60%;
+    -webkit-box-flex: 1 1 auto;
+    -moz-box-flex:  1 1 auto;
+    -webkit-flex:  1 1 auto;
+    -ms-flex:  1 1 auto;
+    flex:  1 1 auto;
+}
+
+.flex-child2 {
+    margin: 10;
+    width: 60%;
+    -webkit-box-flex: 1 1 auto;
+    -moz-box-flex:  1 1 auto;
+    -webkit-flex:  1 1 auto;
+    -ms-flex:  1 1 auto;
+    flex:  1 1 auto;
 }

@@ -1,26 +1,39 @@
 const form = document.querySelector('form');
+const buttonSend = document.getElementById('send_button');
+const buttonFind = document.getElementById('find_button');
 const loading = document.querySelector('.loading');
 const API_URL = 'http://localhost:5000/meos'
 const meosElement = document.querySelector('.meos');
 
+let meo;
 loading.style.display = '';
 
 listAllMeos();
 
-form.addEventListener('submit', (event) => {
+buttonSend.onclick = fetchListCats;
+buttonFind.onclick = findCat;
+
+function getInputData(){
     event.preventDefault();
     const formData = new FormData(form);
     const name = formData.get('name');
     const content = formData.get('content');
-    const meo = {
+    meo = {
         name,
         content
     };
+
     form.style.display = 'none';
     loading.style.display = '';
+}
 
-    console.log("Hello world");
+function findCat() {
+    getInputData();
+    
+}
 
+function fetchListCats() {
+    getInputData();
     fetch(API_URL, {
         method: 'POST',
         body: JSON.stringify(meo),
@@ -38,7 +51,8 @@ form.addEventListener('submit', (event) => {
             listAllMeos();
         });
 
-});
+}
+
 
 function listAllMeos() {
     meosElement.innerHTML = '';

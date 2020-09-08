@@ -6,7 +6,7 @@ const monk = require('monk');
 const Filter = require('bad-words'),
         filter = new Filter();
 
-const db = monk('localhost/meomeo');
+const db = monk(process.env.MONGO_URI || 'localhost/meomeo');
 const meos = db.get('meos');
 
 

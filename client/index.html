@@ -20,15 +20,20 @@
             <input class="u-full-width" type="text" id="name" name="name">
             <label for="content">Meo</label>
             <textarea class="u-full-width" type="text" id="content" name="content"></textarea>
-            <button class="button-primary">Send Your Meo 😸 </button>
-            </form>
-            <div class="loading" >
-                <img src="loading.gif">
+            <div class="flex">
+                <button class="button-primary flex-child1" id="send_button">Send Your Meo 😸 </button>
+                <button class="button-primary flex-child2" id="find_button">Find Your Meo 😸 </button>
             </div>
+        </form>
+        
+        <div class="loading">
+            <img src="loading.gif">
+        </div>
+        
         <div class="meos">
-
         </div>
     </main>
     <script src="client.js"></script>
 </body>
+
 </html>
