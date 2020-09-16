@@ -32,9 +32,10 @@ app.get('/meos', (req, res) => {
 })
 
 app.get('/v2/meos', (req, res, next) => {
-    let { skip = 0, limit = 10, sort = "desc" } = req.query;
+    console.log("Req: ", req);
+    let { skip = 0, limit = 5, sort = "desc" } = req.query;
     skip = Number(skip) || 0;
-    limit = Number(limit) || 10;
+    limit = Number(limit) || 5;
     skip = skip < 0 ? 0 : skip;
     limit = limit > 50 ? 50 : limit;
     limit = limit < 0 ? 10 : limit;

@@ -43,3 +43,8 @@
     -ms-flex:  1 1 auto;
     flex:  1 1 auto;
 }
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}

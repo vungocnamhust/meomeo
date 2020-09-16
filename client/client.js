@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const buttonSend = document.getElementById('send_button');
 const buttonFind = document.getElementById('find_button');
 const loading = document.querySelector('.loading');
-const API_URL = 'http://localhost:5000/meos'
+const API_URL = 'http://localhost:5000/v2/meos'
 const API_URL_FIND = 'http://localhost:5000/meofind'
 const meosElement = document.querySelector('.meos');
 
@@ -97,12 +97,14 @@ function fetchListCats() {
 
 
 function listAllMeos() {
+    let skip = 0;
+    let limit = 5;
     meosElement.innerHTML = '';
-    fetch(API_URL).then(res => res.json())
-        .then(meos => {
-            meos.reverse();
+    fetch(`${API_URL}?skip=${skip}&limt=${limit}`).then(res => res.json())
+        .then(result => {
+            // meos.reverse();
 
-            meos.forEach(meo => {
+            result.meos.forEach(meo => {
                 const div = document.createElement('div')
 
                 const header = document.createElement('h3');
