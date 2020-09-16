@@ -32,22 +32,33 @@ app.get('/meos', (req, res) => {
 })
 
 app.get('/v2/meos', (req, res, next) => {
-    let { skip = 0, limit = 10 } = req.query;
-    skip = Number(skip);
-    limit = Number(limit);
-    //  skip = Number(req.query.skip) || 0;
-    // let limit = Number(req.query.limit) || 10;
+    let { skip = 0, limit = 10, sort = "desc" } = req.query;
+    skip = Number(skip) || 0;
+    limit = Number(limit) || 10;
+
 
     Promise.all([
         meos.count(),
         meos.find({}, {
             skip,
             limit,
+            sort: {
+                created: sort === "asc" ? 1 : -1
+            }
         })
     ])
-
-
-        .then(([count, meos]) => { res.json(count, skip, limit, meos) }).catch(next)
+        .then(([total, meos]) => {
+            res.json(
+                {
+                    meos,
+                    meta : {
+                        total,
+                        skip,
+                        limit,
+                        hasMore: total - (skip + limit) > 0,
+                    }
+                })
+        }).catch(next)
 })
 
 app.use(rateLimit({
